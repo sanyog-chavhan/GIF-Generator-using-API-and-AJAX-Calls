@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script>
+        let API_Key = "Sy95TeS3iEDQcUHuLdioe5dawpTug8hW";
+        $(function () {
+            $(".button1").on("click", function () {
+                $.ajax({
+                    method: "GET",
+                    url: " http://api.giphy.com/v1/gifs/search",
+                    data: {
+                        q: $(".search").val(),
+                        api_key: API_Key
+                    },
+                }).then(function (response) {
+                    console.log(response);
+                    $.each(response["data"], function (index, val) {
+                        $(".container").append('<img class="gifs" src="' + response["data"][index]["images"]["original"]["url"] + '" width="200" height="200">');
+                    });
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            });
+
+            $(".button2").on("click", function () {
+                $(".gifs").remove();
+                $(".search").val('');
+            });
+        });
+    </script>
+    <style>
+        body {
+            background-color: bisque;
+            font-family: 'Book Antiqua';
+        }
+        .title1 {
+            display:flex;
+            position:relative;
+            margin-left:500px;
+        }
+        .search {
+            display:flex;
+            position:relative;
+            margin-left:530px;
+            margin-top:-42px;
+            width:230px;
+        }
+        .button1 {
+            display: flex;
+            position: relative;
+            width: 70px;
+            height: 25px;
+            background-color: darksalmon;
+            border: none;
+            box-shadow: 1px 1px #888888;
+            color:aliceblue;
+            font-family:'Book Antiqua';
+            padding-left:15px;
+            padding-top:4px;
+            font-size:14px;
+            margin-left:780px;
+            margin-top:-24px;
+        }
+        .button1:hover {
+            box-shadow:2px 2px #888888;
+        }
+        .button2 {
+            display: flex;
+            position: relative;
+            width: 70px;
+            height: 25px;
+            background-color: darksalmon;
+            border: none;
+            box-shadow: 1px 1px #888888;
+            color: aliceblue;
+            font-family: 'Book Antiqua';
+            padding-left: 15px;
+            padding-top: 4px;
+            font-size: 14px;
+            margin-left: 860px;
+            margin-top: -25px;
+        }
+        .button2:hover {
+            box-shadow: 2px 2px #888888;
+        }
+        .little-title {
+            position:relative;
+            display:flex;
+            margin-left:430px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title1">GIPHY PARTY!!!</h1>
+        <hr style="background-color:red;" />
+        <h4 class="little-title">Enter Word</h4>
+        <input type="text" class="search" placeholder="Search for GIFs" required />
+        <button class="button1">Search</button>
+        <button class="button2">Delete</button>
+    </div>
+</body>
+</html>
